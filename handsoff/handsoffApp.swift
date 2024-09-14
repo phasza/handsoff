@@ -1,6 +1,7 @@
 import SwiftUI
 import AppKit
 import Carbon
+import Foundation
 
 let lockQueue = DispatchQueue(label: "com.handsoff.lockqueue")
 
@@ -33,6 +34,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
+        NSSetUncaughtExceptionHandler { exception in
+            Logger.shared.log("Uncaught exception: \(exception)")
+        }
+        
         checkAccessibilityPermissions()
         setupStatusItem()
         updateMenu()
@@ -92,9 +97,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         )
         
         guard let eventTap = eventTap else {
+            Logger.shared.log("Failed to create event tap.")
             showErrorAlert(message: "Failed to create event tap.")
             return
         }
+        
+        Logger.shared.log("Successfully created event tap.")
         
         runLoopSource = CFMachPortCreateRunLoopSource(kCFAllocatorDefault, eventTap, 0)
         CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoopSource, .commonModes)
@@ -111,23 +119,33 @@ class AppDelegate: NSObject, NSApplicationDelegate {
                 
         CGEvent.tapEnable(tap: eventTap, enable: false)
         self.eventTap = nil
+        Logger.shared.log("Cleaned up event tap.")
     }
     
     private func checkAccessibilityPermissions() {
         let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as NSString: true]
         let isTrusted = AXIsProcessTrustedWithOptions(options)
         
+        Logger.shared.log("Checking accessibility permissions. Trusted: \(isTrusted)")
+        
         if !isTrusted {
+            Logger.shared.log("App is not trusted. Prompting user for permissions.")
             showErrorAlert(message: "Accessibility permissions are required to lock/unlock the keyboard. Please grant access in System Preferences > Security & Privacy > Accessibility.")
             waitForAccessibilityPermissions()
         }
     }
     
     private func waitForAccessibilityPermissions() {
+        Logger.shared.log("Waiting for accessibility permissions...")
+        
         Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { timer in
             let isTrusted = AXIsProcessTrusted()
+            Logger.shared.log("Accessibility permissions check. Trusted: \(isTrusted)")
+            
+            
             if isTrusted {
-                timer.invalidate() // Stop checking once permissions are granted
+                timer.invalidate()
+                Logger.shared.log("Permissions granted. Setting up event tap.")
                 self.setupEventTap()
             }
         }

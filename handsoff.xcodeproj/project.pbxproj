@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		77A026862C95CBED0083DEF0 /* logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77A026852C95CBED0083DEF0 /* logger.swift */; };
 		77F39CB42C9416E80011A7A0 /* handsoffApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77F39CB32C9416E80011A7A0 /* handsoffApp.swift */; };
 		77F39CB82C9416E90011A7A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F39CB72C9416E90011A7A0 /* Assets.xcassets */; };
 		77F39CBB2C9416E90011A7A0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 77F39CBA2C9416E90011A7A0 /* Preview Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		77A026852C95CBED0083DEF0 /* logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = logger.swift; sourceTree = "<group>"; };
 		77F39CB02C9416E80011A7A0 /* handsoff.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = handsoff.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		77F39CB32C9416E80011A7A0 /* handsoffApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = handsoffApp.swift; sourceTree = "<group>"; };
 		77F39CB72C9416E90011A7A0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				77F39CB72C9416E90011A7A0 /* Assets.xcassets */,
 				77F39CBC2C9416E90011A7A0 /* handsoff.entitlements */,
 				77F39CB92C9416E90011A7A0 /* Preview Content */,
+				77A026852C95CBED0083DEF0 /* logger.swift */,
 			);
 			path = handsoff;
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77F39CB42C9416E80011A7A0 /* handsoffApp.swift in Sources */,
+				77A026862C95CBED0083DEF0 /* logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
